@@ -5,8 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News App</title>
+    <style>
+      #news h1 {
+        text-align: center;
+      }
+      #news > div {
+        border: 2px solid gray;
+        border-radius: 5px;
+        width: 70%;
+        margin: 20px auto;
+        display: flex;
+        height: 200px;
+        padding: 1%;
+        background-color: rgb(246, 246, 246);
+      }
+      #news > div > div {
+        height: 100%;
+        margin: 0 1%;
+      }
+      #news img {
+        height: 100%;
+        border-radius: 5px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <button onclick="showTopNews()">Top News</button>
+    <div id="news"></div>
+  </body>
 </html>
 
 <script src="./index.js"></script>
