@@ -49,6 +49,30 @@
       nav > div {
         height: 70%;
       }
+      nav > div:nth-child(5) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      nav > div:nth-child(5) button {
+        background-color: green;
+        color: white;
+        margin: 10px;
+        height: 30px;
+      }
+      #btnDiv {
+        display: flex;
+        height: 30px !important;
+        padding: 0 !important;
+        align-items: center;
+        justify-content: space-around;
+        border: none !important;
+        background-color: white !important;
+        width: 30% !important;
+      }
+      #btnDiv button {
+        height: 20px;
+      }
     </style>
   </head>
   <body>
@@ -56,6 +80,7 @@
       <div>
         <button onclick="window.location.href='index.html'">Home</button>
       </div>
+
       <div>
         <button onclick="window.location.href='sports.html'">Sports</button>
       </div>
@@ -68,6 +93,10 @@
         <button onclick="window.location.href='technology.html'">
           Technology
         </button>
+      </div>
+      <div>
+        <input type="text" id="search" placeholder="Search" />
+        <button id="0" class="searchBtn">Search</button>
       </div>
     </nav>
     <div id="news"></div>

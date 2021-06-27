@@ -49,6 +49,30 @@
       nav > div {
         height: 70%;
       }
+      nav > div:nth-child(5) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      nav > div:nth-child(5) button {
+        background-color: green;
+        color: white;
+        margin: 10px;
+        height: 30px;
+      }
+      #btnDiv {
+        display: flex;
+        height: 30px !important;
+        padding: 0 !important;
+        align-items: center;
+        justify-content: space-around;
+        border: none !important;
+        background-color: white !important;
+        width: 30% !important;
+      }
+      #btnDiv button {
+        height: 20px;
+      }
     </style>
   </head>
   <body>
@@ -68,6 +92,10 @@
         <button onclick="window.location.href='technology.html'">
           Technology
         </button>
+      </div>
+      <div>
+        <input type="text" id="search" placeholder="Search" />
+        <button id="0" class="searchBtn">Search</button>
       </div>
     </nav>
     <div id="news"></div>
@@ -109,4 +137,66 @@
   }
 
   showTopNews();
+  let searchNews;
+  let searchBtn = document.getElementById("0");
+  searchBtn.onclick = search;
+
+  async function search() {
+    try {
+      var id = Number(this.id);
+      // console.log('id:', id)
+      newsCont.innerHTML = null;
+      let key = document.getElementById("search").value;
+      let res = await fetch(
+        `https://newsapi.org/v2/everything?q=${key}&apiKey=c0788411c9104dfba835b23653184e46`
+      );
+      searchNews = await res.json();
+      // console.log('searchNews:', searchNews)
+      let page_data = searchNews.articles.slice(id * 5, id * 5 + 5);
+      // console.log('page_data:', page_data)
+      page_data.forEach(function (n) {
+        let div = document.createElement("div");
+        let h3 = document.createElement("h3");
+        h3.innerText = n.title;
+        let img = document.createElement("img");
+        img.src = n.urlToImage;
+        let date = document.createElement("p");
+        date.innerHTML = `Published At:  ${n.publishedAt}`;
+        let desc = document.createElement("p");
+        desc.innerHTML = n.description;
+        imgDiv = document.createElement("div");
+        imgDiv.append(img);
+        contentDiv = document.createElement("div");
+        contentDiv.append(h3, date, desc);
+        div.append(imgDiv, contentDiv);
+        newsCont.append(div);
+      });
+      showBtns(Number(this.id));
+    } catch (e) {
+      console.log("e:", e);
+    }
+  }
+
+  function showBtns(id) {
+    let originalId = id;
+    if (id <= 4) {
+      id = 4;
+    }
+    let btnDiv = document.createElement("div");
+    btnDiv.innerHTML = null;
+    btnDiv.setAttribute("id", "btnDiv");
+    for (let i = id - 4; i < id + 5; i++) {
+      let btn = document.createElement("button");
+      btn.setAttribute("id", `${i}`);
+      btn.innerHTML = i + 1;
+      btn.onclick = search;
+      btnDiv.append(btn);
+    }
+    newsCont.append(btnDiv);
+    let btn = document.getElementById(`${originalId}`);
+    btn.style.backgroundColor = "yellow";
+    let searchBtn = document.getElementsByClassName("searchBtn");
+    // console.log('searchBtn:', searchBtn)
+    searchBtn[0].style.backgroundColor = "green";
+  }
 </script>
